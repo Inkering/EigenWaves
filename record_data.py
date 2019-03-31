@@ -9,7 +9,11 @@ recordings = []
 
 for j in range(samples):
 
-    recordings.append(str(name + str(j)))
+    recordings.append('fox_' + str(name + str(j)))
+
+for j in range(samples):
+
+    recordings.append('short_' + str(name + str(j)))
 
 for i in recordings:
     print(type(i))

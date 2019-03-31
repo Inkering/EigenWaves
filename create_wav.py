@@ -12,6 +12,12 @@ import time
 
 def recordFile(name):
 
+    try:
+        while 1:
+            pass
+    except KeyboardInterrupt:
+        pass
+
     class Args:
         pass
 
