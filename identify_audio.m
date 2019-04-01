@@ -70,8 +70,8 @@ z = U'*(train_vec_ms);
 
 % Run guessing algorithm by finding the image in training that is most
 % similar to the test image and returning the guessed index
-guesses = zeros(12);
-for im=1:12
+guesses = zeros(size(test_vec,2));
+for im=1:size(test_vec,2)
     exampleImage = x(:,im);
 %     err = sum(abs(exampleImage-z));
 %     err = sqrt(sum((exampleImage-z).^2));
