@@ -1,6 +1,6 @@
 Files=dir('*.wav*');
 
-number = 20000;  % 500
+number = 8000;  % 500
 full_data = zeros(number,1);
 
 names = strings(size(full_data,2));
@@ -8,7 +8,10 @@ names = strings(size(full_data,2));
 for k=1:length(Files)
    FileName=Files(k).name;
    names(k) = FileName(1:end-5);
-   [xn, fs] = audioread(FileName);
+   [xi, fs] = audioread(FileName);
+   
+   xn = bandpass(xi,[0.01 0.3]);
+   
    n = length(xn);
    nf=1024; %number of point in DTFT
     y = fft(xn);
