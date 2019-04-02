@@ -1,7 +1,8 @@
 Files=dir('*.wav*');
 
-number = 8000;  % 500
-full_data = zeros(number,1);
+number = 200000;  % 500
+number2 = 80000;
+full_data = zeros(number2,1);
 
 names = strings(size(full_data,2));
 
@@ -12,21 +13,36 @@ for k=1:length(Files)
    
    xn = bandpass(xi,[0.01 0.3]);
    
+   xn = [xn; zeros((number - length(xn)), 1)];
+   
+   for i=1:length(xn)
+       if xn(i) > 0.05
+           index = i;
+           break
+       end
+   end
+   
+   xn = xn(index:index+number2);
+   %envelope = imdilate(abs(xn), true(1501, 1));
+   %quietParts = envelope < 0.05;
+   %xnEdited = xn; % Initialize
+   %xnEdited(quietParts) = [];
+   
    n = length(xn);
    nf=1024; %number of point in DTFT
     y = fft(xn);
     power = abs(y).^2/n;
     data = power;
     f = fs/2*linspace(0,1,nf/2+1);
-    data = data(1:number);
+    data = data(1:number2);
 %    data = [data;  zeros((200000-length(data)),1)];
    full_data(:,k) = data;
 end
 
 plot(full_data(:,1))
 
-train_vec = zeros(number,size(full_data,2));
-test_vec = zeros(number,size(full_data,2));
+train_vec = zeros(number2,size(full_data,2));
+test_vec = zeros(number2,size(full_data,2));
 
 training_answers = strings(size(full_data,2));
 test_answers = strings(size(full_data,2));
